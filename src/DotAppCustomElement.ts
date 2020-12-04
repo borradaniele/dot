@@ -4,17 +4,18 @@
 import { render } from "lit-html";
 import DotComponent from "./DotComponent";
 
-class DotCustomElement extends HTMLElement {
+class DotAppCustomElement extends HTMLElement {
   public template : Function;
   public context : DotComponent;
 
-  constructor(template : Function, context : DotComponent) {
+  constructor(template : Function, context : any) {
     super();
 
     this.template = template;
     this.context = context;
     
     this.attachShadow({ mode: 'open' });
+    this.render();
   }
 
   render() {
@@ -24,4 +25,4 @@ class DotCustomElement extends HTMLElement {
   }
 }
 
-export default DotCustomElement;
+export default DotAppCustomElement;
