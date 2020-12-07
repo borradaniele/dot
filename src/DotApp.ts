@@ -1,6 +1,5 @@
 import DotStore from "./DotStore";
 import DotRouter from "./DotRouter";
-import { html } from "lit-html";
 import DotComponent from "./DotComponent";
 
 class DotApp {
