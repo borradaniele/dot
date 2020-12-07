@@ -1,4 +1,6 @@
+import { html } from "lit-html";
 import { DotComponentOptions } from "./declations";
+import DotComponentCustomElement from './DotComponentCustomElement';
 
 class DotComponent {
   public name : string;
@@ -8,6 +10,8 @@ class DotComponent {
   public props : object;
   private $data : object;
   public data : object;
+  public $template : Function;
+  public $el : DotComponentCustomElement | null = null;
 
   private tree : Array<DotComponent> = [];
 
@@ -23,6 +27,13 @@ class DotComponent {
 
     this.$data = {};
     this.data = new Proxy(this.$data, this.$handler);
+
+    this.$template = (contenxt : any) => html`<!-- Empty component -->`;
+  }
+
+  mount(parent : DotComponent) {
+    this.$el = new DotComponentCustomElement(this.$template, this);
+    parent.$template = () => html`${parent.$template(parent)}${this.$el}`;
   }
 
   get $handler () {
