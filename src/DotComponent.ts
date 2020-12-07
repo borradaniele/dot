@@ -1,21 +1,21 @@
-import { html } from "lit-html";
+import { html, render } from "lit-html";
 import { DotComponentOptions } from "./declations";
-import DotComponentCustomElement from './DotComponentCustomElement';
 
-class DotComponent {
+class DotComponent extends HTMLElement {
   public name : string;
   public tag : string;
 
-  private $props : object;
-  public props : object;
-  private $data : object;
-  public data : object;
+  public $props : object;
+  public $data : object;
   public $template : Function;
-  public $el : DotComponentCustomElement | null = null;
-
-  private tree : Array<DotComponent> = [];
+  public $parent : DotComponent | null = null;
+  
+  private _props : object;
+  private _data : object;
 
   constructor(options : DotComponentOptions) {
+    super();
+
     if (!options.name) throw new Error('Invalid component name');
     if (!options.tag || options.tag.includes('-')) throw new Error('Invalid tag name');
 
@@ -23,26 +23,33 @@ class DotComponent {
     this.tag = options.tag;
 
     this.$props = {};
-    this.props = new Proxy(this.$props, this.$handler);
+    this._props = new Proxy(this.$props, this.$handler);
 
     this.$data = {};
-    this.data = new Proxy(this.$data, this.$handler);
+    this._data = new Proxy(this.$data, this.$handler);
 
     this.$template = (contenxt : any) => html`<!-- Empty component -->`;
+    this.attachShadow({ mode: 'open' });
+  }
+  
+  register(descriptor : CustomElementConstructor) {
+    customElements.define(this.tag, descriptor);
   }
 
-  mount(parent : DotComponent) {
-    this.$el = new DotComponentCustomElement(this.$template, this);
-    parent.$template = () => html`${parent.$template(parent)}${this.$el}`;
+  render() {
+    if (!this.shadowRoot) throw Error('Before render, shadowroot must be mounted');
+    render(this.$template(this), this.shadowRoot, { eventContext: this });
   }
 
   get $handler () {
+    const render = () => this.render();
     return {
       get (target : object, key : string, receiver : any) {
         return Reflect.get(target, key, receiver);
       },
       set (target : object, key : string, value : any, receiver : any) {
         const r = Reflect.set(target, key, value, receiver);
+        render();
         return r;
       }
     }
