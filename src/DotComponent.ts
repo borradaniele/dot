@@ -5,12 +5,11 @@ class DotComponent extends HTMLElement {
   public name : string;
   public tag : string;
 
-  public $props : object;
+  public $attributes : any;
   public $data : object;
   public $template : Function;
   public $parent : DotComponent | null = null;
   
-  private _props : object;
   private _data : object;
 
   constructor(options : DotComponentOptions) {
@@ -22,11 +21,10 @@ class DotComponent extends HTMLElement {
     this.name = options.name;
     this.tag = options.tag;
 
-    this._props = {};
-    this.$props = new Proxy(this._props, this.$handler);
-
     this._data = {};
     this.$data = new Proxy(this._data, this.$handler);
+
+    this.$attributes = {};
 
     this.$template = (contenxt : any) => html`<!-- Empty component -->`;
     this.attachShadow({ mode: 'open' });
@@ -36,6 +34,11 @@ class DotComponent extends HTMLElement {
   render() {
     if (!this.shadowRoot) throw Error('Before render, shadowroot must be mounted');
     render(this.$template(), this.shadowRoot, { eventContext: this });
+  }
+
+  attributeChangedCallback(attributeName : string, oldValue : any, newValue : any) {
+    this.$attributes[attributeName] = newValue;
+    this.render();
   }
 
   get $handler () {
