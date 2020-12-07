@@ -25,8 +25,8 @@ class DotApp {
     // Append the component to the correct parent
     if (!component.$parent && this.$container) {
       this.$container.appendChild(component);
-    } else if (component.$parent && this.$container) {
-      component.$parent.appendChild(component);
+    } else if (component.$parent?.shadowRoot && this.$container) {
+      component.$parent.shadowRoot.append(component);
     } else {
       throw Error('Trying to append a component without parent but app it has not being mounted yet.');
     }

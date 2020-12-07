@@ -17,28 +17,25 @@ class DotComponent extends HTMLElement {
     super();
 
     if (!options.name) throw new Error('Invalid component name');
-    if (!options.tag || options.tag.includes('-')) throw new Error('Invalid tag name');
+    if (!options.tag || !options.tag.includes('-')) throw new Error('Invalid tag name');
 
     this.name = options.name;
     this.tag = options.tag;
 
-    this.$props = {};
-    this._props = new Proxy(this.$props, this.$handler);
+    this._props = {};
+    this.$props = new Proxy(this._props, this.$handler);
 
-    this.$data = {};
-    this._data = new Proxy(this.$data, this.$handler);
+    this._data = {};
+    this.$data = new Proxy(this._data, this.$handler);
 
     this.$template = (contenxt : any) => html`<!-- Empty component -->`;
     this.attachShadow({ mode: 'open' });
-  }
-  
-  register(descriptor : CustomElementConstructor) {
-    customElements.define(this.tag, descriptor);
+    this.render();
   }
 
   render() {
     if (!this.shadowRoot) throw Error('Before render, shadowroot must be mounted');
-    render(this.$template(this), this.shadowRoot, { eventContext: this });
+    render(this.$template(), this.shadowRoot, { eventContext: this });
   }
 
   get $handler () {

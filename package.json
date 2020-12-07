@@ -28,9 +28,9 @@
   },
   "homepage": "https://github.com/borradaniele/dot#readme",
   "devDependencies": {
-    "typescript": "^4.1.2"
+    "typescript": "^4.1.2",
+    "lit-html": "^1.3.0"
   },
   "dependencies": {
-    "lit-html": "^1.3.0"
   }
 }
