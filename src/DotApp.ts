@@ -10,7 +10,7 @@ class DotApp {
   private tree : Array<DotComponent> = [];
 
   constructor(store : DotStore, router : DotRouter) {
-    this.$store = !store ? new DotStore() : store;
+    this.$store = !store ? new DotStore({}, this) : store;
     this.$router = !router ? new DotRouter() : router;
   }
 
@@ -30,6 +30,10 @@ class DotApp {
     } else {
       throw Error('Trying to append a component without parent but app it has not being mounted yet.');
     }
+  }
+
+  renderTree() {
+    this.tree.forEach((c) => c.render());
   }
 }
 

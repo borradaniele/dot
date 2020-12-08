@@ -7,6 +7,7 @@ class DotComponent extends HTMLElement {
 
   public $attributes : any;
   public $data : object;
+  public $watchers : Map<string, Function>;
   public $template : Function;
   public $parent : DotComponent | null = null;
   
@@ -22,9 +23,11 @@ class DotComponent extends HTMLElement {
     this.tag = options.tag;
 
     this._data = {};
-    this.$data = new Proxy(this._data, this.$handler);
+    this.$data = new Proxy(this._data, this.handler);
 
     this.$attributes = {};
+
+    this.$watchers = new Map();
 
     this.$template = (contenxt : any) => html`<!-- Empty component -->`;
     this.attachShadow({ mode: 'open' });
@@ -41,15 +44,16 @@ class DotComponent extends HTMLElement {
     this.render();
   }
 
-  get $handler () {
-    const render = () => this.render();
+  private get handler () {
+    const context = this;
     return {
       get (target : object, key : string, receiver : any) {
         return Reflect.get(target, key, receiver);
       },
       set (target : object, key : string, value : any, receiver : any) {
         const r = Reflect.set(target, key, value, receiver);
-        render();
+        if (context.$watchers.get(key)) (context.$watchers.get(key) as Function).call(context);
+        context.render();
         return r;
       }
     }
