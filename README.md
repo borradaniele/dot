@@ -1,3 +1,5 @@
+![DOT Logo](logo.png)
+
 ## Example of basic usage
 
 To test this file use a bundler and include the result in an html file
