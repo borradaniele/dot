@@ -51,8 +51,11 @@ class DotComponent extends HTMLElement {
         return Reflect.get(target, key, receiver);
       },
       set (target : object, key : string, value : any, receiver : any) {
+        const old = (context._data as any)[key];
         const r = Reflect.set(target, key, value, receiver);
-        if (context.$watchers.get(key)) (context.$watchers.get(key) as Function).call(context);
+        if (context.$watchers.get(key)) {
+          (context.$watchers.get(key) as Function).call(context, (context._data as any)[key], old);
+        }
         context.render();
         return r;
       }

@@ -19,8 +19,9 @@ class AppTitle extends DotComponent {
     this.$data.something = null;
 
     // Watch this data and log it's value on change
-    this.$watchers.set('something', () => {
-      console.log(this.$data.something);
+    this.$watchers.set('something', (newValue, oldValue) => {
+      console.log('Old: ', oldValue);
+      console.log('New: ', newValue);
     });
 
     this.$template = () => html`
