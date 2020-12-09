@@ -1,10 +1,6 @@
 import { html, render } from "lit-html";
-import { DotComponentOptions } from "./declations";
 
 class DotComponent extends HTMLElement {
-  public name : string;
-  public tag : string;
-
   public $attributes : any;
   public $data : object;
   public $watchers : Map<string, Function>;
@@ -13,14 +9,10 @@ class DotComponent extends HTMLElement {
   
   private _data : object;
 
-  constructor(options : DotComponentOptions) {
+  public static get tag () { return null; }
+
+  constructor() {
     super();
-
-    if (!options.name) throw new Error('Invalid component name');
-    if (!options.tag || !options.tag.includes('-')) throw new Error('Invalid tag name');
-
-    this.name = options.name;
-    this.tag = options.tag;
 
     this._data = {};
     this.$data = new Proxy(this._data, this.handler);
@@ -31,7 +23,12 @@ class DotComponent extends HTMLElement {
 
     this.$template = (contenxt : any) => html`<!-- Empty component -->`;
     this.attachShadow({ mode: 'open' });
-    this.render();
+  }
+
+  connectedCallback() {
+    if (this.isConnected) {
+      this.render();
+    }
   }
 
   render() {
@@ -42,6 +39,10 @@ class DotComponent extends HTMLElement {
   attributeChangedCallback(attributeName : string, oldValue : any, newValue : any) {
     this.$attributes[attributeName] = newValue;
     this.render();
+  }
+
+  select(selector : string) : NodeList {
+    return this.querySelectorAll(selector);
   }
 
   private get handler () {
