@@ -1,11 +1,12 @@
 module.exports = {
+  base: '/dot/',
   themeConfig: {
     logo: '/logo.png',
     sidebar: [
       ['/', 'Homepage'],
       {
-        title: 'Classes',   // required
-        path: '/classes/DotApp',      // optional, link of the title, which should be an absolute path and must exist
+        title: 'Classes',
+        path: '/classes/DotApp',
         collapsable: false,
         sidebarDepth: 1,
         children: [
