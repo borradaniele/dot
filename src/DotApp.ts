@@ -7,8 +7,6 @@ class DotApp {
   public $store : DotStore;
   public $router : DotRouter;
 
-  private tree : Array<DotComponent> = [];
-
   constructor(store : DotStore, router : DotRouter) {
     this.$store = !store ? new DotStore({}, this) : store;
     this.$router = !router ? new DotRouter() : router;
@@ -20,8 +18,7 @@ class DotApp {
   
   mount(component : DotComponent, parent : DotComponent | null) {
     component.$parent = parent;
-    this.tree.push(component);
-
+    
     // Append the component to the correct parent
     if (!component.$parent && this.$container) {
       this.$container.appendChild(component);
@@ -32,8 +29,8 @@ class DotApp {
     }
   }
 
-  renderTree() {
-    this.tree.forEach((c) => c.render());
+  public get $children () {
+    return new Array(this.$container?.querySelectorAll('[dot]'));
   }
 }
 

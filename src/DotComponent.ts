@@ -6,6 +6,8 @@ class DotComponent extends HTMLElement {
   public $watchers : Map<string, Function>;
   public $template : Function;
   public $parent : DotComponent | null = null;
+  public $el : ShadowRoot | null;
+  public $refs : object;
   
   private _data : object;
 
@@ -21,8 +23,14 @@ class DotComponent extends HTMLElement {
 
     this.$watchers = new Map();
 
-    this.$template = (contenxt : any) => html`<!-- Empty component -->`;
+    this.$template = (context : any) => html`<!-- Empty component -->`;
     this.attachShadow({ mode: 'open' });
+
+    this.$refs = new Proxy({}, this.refs);
+
+    this.setAttribute('dot', '');
+
+    this.$el = this.shadowRoot;
   }
 
   connectedCallback() {
@@ -61,6 +69,22 @@ class DotComponent extends HTMLElement {
         return r;
       }
     }
+  }
+
+  private get refs () {
+    const context = this;
+    return {
+      get (target : object, key : string, receiver : any) {
+        return context.shadowRoot?.querySelector(`[ref="${key}"]`);
+      },
+      set () {
+        throw new Error('Cannot set a ref pragmatically. Use the attribute instead');
+      }
+    } 
+  }
+
+  public get $children () {
+    return new Array(this.shadowRoot?.querySelectorAll('[dot]'));
   }
 }
 

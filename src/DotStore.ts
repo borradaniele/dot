@@ -19,7 +19,7 @@ class DotStore {
       },
       set (target : object, key : string, value : any, receiver : any) {
         const r = Reflect.set(target, key, value, receiver);
-        context.app.renderTree();
+        // context.app.renderTree(); TODO: Render linked components
         return r;
       }
     }
