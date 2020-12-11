@@ -10,8 +10,8 @@
   ],
   "scripts": {
     "build": "rm -rf dist && mkdir dist && tsc",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
+    "docs:dev": "vuepress dev site",
+    "docs:build": "vuepress build site",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
