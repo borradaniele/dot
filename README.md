@@ -1,5 +1,8 @@
 ![DOT Logo](logo.png)
 
+## DOCS
+Full documentation is available here https://borradaniele.github.com/dot
+
 ## Example of basic usage
 
 To test this file use a bundler and include the result in an html file
