@@ -14,3 +14,15 @@ const app = new DotApp(undefined, router);
 app.$router; // This will be the same reference as your router from the first line
 app.$store; // This will be an empty store
 ```
+
+## APIs
+
+### DOTApp.create(container)
+#### Arguments
+container : HTMLElement
+#### Description
+Append the appplication on the container
+#### Usage
+```javascript
+app.create(document.querySelector('#app'));
+```
