@@ -1,5 +1,6 @@
 module.exports = {
   base: '/dot/',
+  dest: 'site',
   themeConfig: {
     logo: '/logo.png',
     sidebar: [
