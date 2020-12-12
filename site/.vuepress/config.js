@@ -11,7 +11,11 @@ module.exports = {
         collapsable: false,
         sidebarDepth: 1,
         children: [
-          ['/classes/DotApp', 'DotApp']
+          ['/classes/DotApp', 'DotApp'],
+          ['/classes/DotComponent', 'DotComponent'],
+          ['/classes/DotStore', 'DotStore'],
+          ['/classes/DotRouter', 'DotRouter'],
+          ['/classes/DotRoute', 'DotRoute'],
         ]
       },
     ]
