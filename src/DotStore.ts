@@ -3,6 +3,7 @@ import DotApp from "./DotApp";
 class DotStore {
   public state : object;
   private _state : object;
+
   private app : DotApp;
 
   constructor(initial : object, app : DotApp) {

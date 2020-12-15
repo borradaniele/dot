@@ -8,10 +8,14 @@ class DotComponent extends HTMLElement {
   public $parent : DotComponent | null = null;
   public $el : ShadowRoot | null;
   public $refs : object;
+
+  public mounted : Function = () => {};
+  public destroyed : Function = () => {};
+  public adopted : Function = () => {};
   
   private _data : object;
 
-  public static get tag () { return null; }
+  public static get tag () : string | null { return null; }
 
   constructor() {
     super();
@@ -37,6 +41,15 @@ class DotComponent extends HTMLElement {
     if (this.isConnected) {
       this.render();
     }
+    return this.mounted();
+  }
+
+  disconnectedCallback() {
+    return this.destroyed();
+  }
+
+  adoptedCallback() {
+    return this.adopted();
   }
 
   render() {

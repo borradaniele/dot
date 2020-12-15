@@ -9,7 +9,7 @@ class DotApp {
 
   constructor(store : DotStore, router : DotRouter) {
     this.$store = !store ? new DotStore({}, this) : store;
-    this.$router = !router ? new DotRouter() : router;
+    this.$router = !router ? new DotRouter([], this) : router;
   }
 
   create(container : HTMLElement) {
