@@ -2,14 +2,17 @@ import DotApp from "./DotApp";
 
 class DotStore {
   public state : object;
+
   private _state : object;
+  private app : DotApp | null = null;
 
-  private app : DotApp;
-
-  constructor(initial : object, app : DotApp) {
-    this.app = app;
+  constructor(initial : object) {
     this._state = initial;
     this.state = new Proxy(this._state, this.handler);
+  }
+
+  init(app : DotApp) {
+    this.app = app;
   }
 
   private get handler () {

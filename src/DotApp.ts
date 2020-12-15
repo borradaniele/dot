@@ -4,12 +4,16 @@ import DotComponent from "./DotComponent";
 
 class DotApp {
   public $container : HTMLElement | null = null;
-  public $store : DotStore;
-  public $router : DotRouter;
+  public $store : DotStore | null = null;
+  public $router : DotRouter | null = null;
 
-  constructor(store : DotStore, router : DotRouter) {
-    this.$store = !store ? new DotStore({}, this) : store;
-    this.$router = !router ? new DotRouter([], this) : router;
+  constructor() { }
+  
+  use(store : DotStore, router : DotRouter) {
+    this.$store = !store ? new DotStore({}) : store;
+    this.$router = !router ? new DotRouter([]) : router;
+    this.$store.init(this);
+    this.$router.init(this);
   }
 
   create(container : HTMLElement) {

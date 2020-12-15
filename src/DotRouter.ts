@@ -8,17 +8,18 @@ class DotRouter {
   public $route : DotRoute | undefined;
   public $view : DotRouterView;
 
-  private app : DotApp;
+  private app : DotApp | null = null;
 
-  constructor(routes : Array<DotRoute>, app : DotApp) {
+  constructor(routes : Array<DotRoute>) {
     this.$routes = routes;
-    this.app = app;
 
     register(DotRouterView);
     this.$view = new DotRouterView();
+  }
 
+  init(app : DotApp) {
+    this.app = app;
     this.app.mount(this.$view, null);
-
     this.navigate(document.location.pathname);
   }
 
@@ -26,6 +27,7 @@ class DotRouter {
     this.$route = this.current(path);
     if (typeof this.$route !== 'undefined') {
       //  Inject the current route in view and then render
+      this.$view.shadowRoot?.appendChild(this.$route);
       this.$view.render();
     }
   }

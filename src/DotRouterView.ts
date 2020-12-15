@@ -7,7 +7,7 @@ class DotRouterView extends DotComponent {
   constructor() {
     super();
 
-    this.$template = () => html`<slot name="view"></slot>`;
+    this.$template = () => html``;
   }
 }
 
