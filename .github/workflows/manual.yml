@@ -9,4 +9,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Launching build script
-      run: chmod 777 site/deploy.sh && ./site/deploy.sh
+      run: npm i && chmod 777 site/deploy.sh && ./site/deploy.sh
