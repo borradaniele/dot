@@ -1,0 +1,11 @@
+name: Manual Docs Build
+on:
+  workflow_dispatch:
+    inputs:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Launching build script
+      run: ./sote/deploy.sh
