@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Launching build script
-      run: npm run docs:build
+      run: npm i && npm run docs:build
     - name: Deploying
       run: |
           git config user.name github-actions
