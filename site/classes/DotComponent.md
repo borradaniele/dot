@@ -101,7 +101,22 @@ Type: `DotComponent`
 <br><br>
 The current component parent. This is the `DotComponent` passed as parent when calling `app.mount()` for your current componet
 
-<!-- 
+### $el
+Type: `ShadowRoot`
+<br><br>
+The current custom element shadowroot, equalt to `this.shadowRoot` where `this` is a custom element instance.
+
+### $ref
+Type: `any`
+<br><br>
+A collection of all the children with a specified `ref` attribute. Every property in this object corresponds to the actual `DotComponent` instantiated with the `ref` attribute value as the property key. For example writing `<custom-element ref="customElement"></custom-element>` will make the `CustmoElement` componet instance available in
+`this.$refs.customElement`.
+
+#### Usage
+```js
+console.log(this.$refs.customElement.$data.name); // Will log the value of the name property in the $data of the CustomElement instance
+```
+
 ---
 
 ### get $children
@@ -111,25 +126,26 @@ An array of all the direct children mounted on the app `$container` DOM Node.
 
 ---
 
-### create(container)
+### mounted()
 #### Arguments
-`container : HTMLElement`
+`no args`
 #### Description
-Append the appplication on the container
+The callback to call when the component is mounted on DOM Node.
 #### Usage
 ```js
-app.create(document.querySelector('#app'));
+app.mounted = () => { console.log('mounted!', this) }; // Will log when the component is moutned on the DOM Node
 ```
 
-### mount(component, parent)
+### destroyed()
 #### Arguments
-`component : DotComponent`<br>
-`parent : DotComponent | null`
+`no args`
 #### Description
-Programmatically mount the `component` on the `parent`. If parent is `null`, the component will
-be mounted on the app instance instead.
+The callback to call when the component is removed from the DOM Node. Useful for making cleanup works.
 #### Usage
 ```js
-app.create(document.querySelector('#app'));
-``` 
--->
+app.destroyed = () => {
+  delete this.someInstance;
+  removeTimeoud(id);
+  // And other cleanups
+};
+```
