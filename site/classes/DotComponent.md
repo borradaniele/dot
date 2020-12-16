@@ -96,6 +96,11 @@ component$watchers.set('foo', (newValue, oldValue) => {
 });
 component.$data.name = 'bar';
 ```
+### $parent
+Type: `DotComponent`
+<br><br>
+The current component parent. This is the `DotComponent` passed as parent when calling `app.mount()` for your current componet
+
 <!-- 
 ---
 
@@ -126,4 +131,5 @@ be mounted on the app instance instead.
 #### Usage
 ```js
 app.create(document.querySelector('#app'));
-``` -->
+``` 
+-->
