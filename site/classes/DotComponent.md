@@ -106,7 +106,7 @@ Type: `ShadowRoot`
 <br><br>
 The current custom element shadowroot, equalt to `this.shadowRoot` where `this` is a custom element instance.
 
-### $ref
+### $refs
 Type: `any`
 <br><br>
 A collection of all the children with a specified `ref` attribute. Every property in this object corresponds to the actual `DotComponent` instantiated with the `ref` attribute value as the property key. For example writing `<custom-element ref="customElement"></custom-element>` will make the `CustmoElement` componet instance available in
