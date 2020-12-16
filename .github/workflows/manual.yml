@@ -9,4 +9,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Launching build script
-      run: npm i && chmod 777 site/deploy.sh && ./site/deploy.sh
+      run: npm run docs:build
+    - name: Deploying
+      run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "👽 Docs Build"
+          git push
