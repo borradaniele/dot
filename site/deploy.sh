@@ -4,13 +4,10 @@
 set -e
 
 # build
-npm run docs:build
+npm i && npm run docs:build
 
 # if you are deploying to a custom domain
 # echo 'www.example.com' > CNAME
-
-git config user.name github-actions
-git config user.email github-actions@github.com
 
 git init
 git add -A
