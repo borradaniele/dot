@@ -1,7 +1,7 @@
 import DotComponent from './DotComponent';
 
 class DotRoute extends DotComponent {
-  public path : string = '';
+  public path : string | RegExp = '';
 
   constructor() {
     super();

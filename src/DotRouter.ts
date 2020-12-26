@@ -26,27 +26,31 @@ class DotRouter {
     window.addEventListener('popstate', (event : PopStateEvent) => this.handlePopstate(event));
     window.addEventListener('dot-router-navigate', (event : any) => this.linkNavigate(event));
 
-    this.navigate(document.location.pathname);
+    this.navigate(this.location);
   }
 
   navigate(path : string, foreward = true) {
-    console.log('Navigating', document.location.pathname);
     this.$route?.remove();
     if (foreward) window.history.pushState({}, '', path);
 
-    this.$route = this.$routes.find(route => route.path === path);
-    if (typeof this.$route !== 'undefined') {
-      this.$view.shadowRoot?.appendChild(this.$route);
-      this.$view.render();
-    }
+    this.$route = this.$routes.find((route) => {
+      return route.path instanceof RegExp ? route.path.test(path) : route.path === path;
+    });
+
+    if (this.$route) this.$view.shadowRoot?.appendChild(this.$route);
+    this.$view.render();
   }
 
   handlePopstate(event : PopStateEvent) {
-    this.navigate(document.location.pathname, false);
+    this.navigate(this.location, false);
   }
 
   linkNavigate(event : CustomEvent) {
     this.navigate(event.detail.path);
+  }
+
+  public get location() : string {
+    return document.location.href.replace(document.location.origin, '');
   }
 }
 
