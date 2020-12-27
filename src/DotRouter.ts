@@ -8,6 +8,7 @@ class DotRouter {
   public $routes : Array<DotRoute>;
   public $route : DotRoute | undefined;
   public $view : DotRouterView;
+  public $mode : 'in-out' | 'out-in' = 'out-in';
 
   private app : DotApp | null = null;
 
@@ -29,16 +30,50 @@ class DotRouter {
     this.navigate(this.location);
   }
 
-  navigate(path : string, foreward = true) {
-    this.$route?.remove();
-    if (foreward) window.history.pushState({}, '', path);
+  async navigate(path : string, foreward = true) {
+    if (this.$mode === 'out-in') {
+      // Animate the current route out
+      await this.$route?.leave();
+      // Remove the current route
+      this.$route?.remove();
+      // Push the state if needed
+      if (foreward) window.history.pushState({}, '', path);
+      // Find the new route
+      this.matchRoute(path);
+      // Append the new route if needed
+      if (this.$route) this.$view.shadowRoot?.appendChild(this.$route);
+      this.$view.render();
+      // Animate the new route in next frame
+      requestAnimationFrame(() => this.$route?.enter());
+    } else if (this.$mode === 'in-out') {
+      // Store the current route
+      const current = this.$route;
+      // Push the state if needed
+      if (foreward) window.history.pushState({}, '', path);
+      // Find the new route
+      this.matchRoute(path);
+      // Append the new route if needed
+      if (this.$route) this.$view.shadowRoot?.appendChild(this.$route);
+      this.$view.render();
+      // Animate the new route in
+      await this.$route?.enter();
+      // Animate the old route out
+      await current?.leave();
+      // Remove the old route
+      current?.remove();
+    } else {
+      throw new Error('Invalid mode type on router view');
+    }
+  }
 
+  matchRoute(path : string) {
     this.$route = this.$routes.find((route) => {
       return route.path instanceof RegExp ? route.path.test(path) : route.path === path;
     });
-
-    if (this.$route) this.$view.shadowRoot?.appendChild(this.$route);
-    this.$view.render();
+    if (this.$route?.path instanceof RegExp) {
+      this.$route.$matches = path.match(this.$route.path);
+      this.$route.$params = this.$route.$matches?.groups;
+    }
   }
 
   handlePopstate(event : PopStateEvent) {
