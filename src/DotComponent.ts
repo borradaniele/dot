@@ -32,13 +32,12 @@ class DotComponent extends HTMLElement {
 
     this.$refs = new Proxy({}, this.refs);
 
-    this.setAttribute('dot', '');
-
     this.$el = this.shadowRoot;
   }
 
   connectedCallback() {
     if (this.isConnected) {
+      this.setAttribute('dot', '');
       this.render();
     }
     return this.mounted();
