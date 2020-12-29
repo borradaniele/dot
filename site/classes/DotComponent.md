@@ -133,7 +133,7 @@ An array of all the direct children mounted on the app `$container` DOM Node.
 The callback to call when the component is mounted on DOM Node.
 #### Usage
 ```js
-app.mounted = () => { console.log('mounted!', this) }; // Will log when the component is moutned on the DOM Node
+this.mounted = () => { console.log('mounted!', this) }; // Will log when the component is moutned on the DOM Node
 ```
 
 ### destroyed()
@@ -143,9 +143,22 @@ app.mounted = () => { console.log('mounted!', this) }; // Will log when the comp
 The callback to call when the component is removed from the DOM Node. Useful for making cleanup works.
 #### Usage
 ```js
-app.destroyed = () => {
+this.destroyed = () => {
   delete this.someInstance;
   removeTimeoud(id);
   // And other cleanups
+};
+```
+
+### adopted()
+#### Arguments
+`no args`
+#### Description
+The callback to call when the component is moved from the current DOM Node to another DOM Node. Useful for clearing and re-instancing props dependant from the parent node.
+#### Usage
+```js
+this.adopted = () => {
+  delete this.someInstance;
+  this.someInstance = new Instance();
 };
 ```
