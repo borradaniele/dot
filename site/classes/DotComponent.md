@@ -8,7 +8,7 @@ Every component needs to declare at least a `$template` function and a static ge
 the html. The template function is a factory function returning a tagged template string using the `html` tag (imported from lit-html). Inside the string you can write your HTML thath will be converted to the actual DOM by the lit-html renderer.
 <br>
 The static getter should return a string with a valid custom component tag name (containing at least an hyphen) like
-this `public static get tag() { return 'my-name' }`
+this `static get tag() { return 'my-name' }`
 <br><br>
 __Before using the tag in your HTML templates and other places in your application you need to register the component and let the `document` know about your element__ to do so you can use the `register(component : DotComponentContructor)`
 helper.
@@ -21,7 +21,7 @@ import { DotComponent, html, register } from 'dot';
 // import { html } from 'lit-html'; // You can also import it from lit-html 
 
 class CustomComponent extends DotCompnent {
-  public static get tag() { return 'custom-component' }
+  static get tag() { return 'custom-component' }
 
   constructor() {
     super();
