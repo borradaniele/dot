@@ -1,5 +1,9 @@
 ![DOT Logo](logo.png)
 
+### Starting up as a personal experiment the framework is not in even in an alpha state right now, so please use it just for testing and helping with the development.
+
+---
+
 ## DOCS
 Full documentation is available here https://borradaniele.github.com/dot
 
