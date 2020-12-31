@@ -9,9 +9,9 @@ class DotComponent extends HTMLElement {
   public $el : ShadowRoot | null;
   public $refs : object;
 
-  public mounted : Function = () => {};
-  public destroyed : Function = () => {};
-  public adopted : Function = () => {};
+  public mounted : Function | undefined;
+  public destroyed : Function | undefined;
+  public adopted : Function | undefined;
   
   private _data : object;
 
@@ -40,15 +40,15 @@ class DotComponent extends HTMLElement {
       this.setAttribute('dot', '');
       this.render();
     }
-    return this.mounted();
+    return this.mounted ? this.mounted() : null;
   }
 
   disconnectedCallback() {
-    return this.destroyed();
+    return this.destroyed ? this.destroyed() : null;
   }
 
   adoptedCallback() {
-    return this.adopted();
+    return this.adopted ? this.adopted() : null;
   }
 
   render() {
