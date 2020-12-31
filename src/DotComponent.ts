@@ -12,6 +12,7 @@ class DotComponent extends HTMLElement {
   public mounted : Function | undefined;
   public destroyed : Function | undefined;
   public adopted : Function | undefined;
+  public rendered : Function | undefined;
   
   private _data : object;
 
@@ -54,6 +55,7 @@ class DotComponent extends HTMLElement {
   render() {
     if (!this.shadowRoot) throw Error('Before render, shadowroot must be mounted');
     render(this.$template(), this.shadowRoot, { eventContext: this });
+    return this.rendered ? this.rendered() : null;
   }
 
   attributeChangedCallback(attributeName : string, oldValue : any, newValue : any) {
