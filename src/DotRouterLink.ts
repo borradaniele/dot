@@ -8,7 +8,7 @@ class DotRouterLink extends DotComponent {
     super();
 
     this.$template = () => html`
-      <a href="${this.getAttribute('to')}" @click="${this.handleClick}">
+      <a part="a" href="${this.getAttribute('to')}" @click="${this.handleClick}">
         <slot></slot>
       </a>
     `;
