@@ -1,7 +1,7 @@
 {
-  "name": "dot",
+  "name": "@neondot/dot",
   "version": "0.0.1",
-  "description": "",
+  "description": "A native first, front end library for creating awesome UI. Created to leverage the gap between native apis and reactive frameworks.",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,9 +26,9 @@
   "author": "Daniele Borra <daniele.borra.93@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/borradaniele/dot/issues"
+    "url": "https://github.com/neondot/dot/issues"
   },
-  "homepage": "https://github.com/borradaniele/dot#readme",
+  "homepage": "https://github.com/neondot/dot#readme",
   "devDependencies": {
     "typescript": "^4.1.2",
     "lit-html": "^1.3.0",
