@@ -10,8 +10,6 @@
   ],
   "scripts": {
     "build": "rm -rf dist && mkdir dist && tsc",
-    "docs:dev": "vuepress dev site",
-    "docs:build": "vuepress build site",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,9 +28,9 @@
   },
   "homepage": "https://github.com/neondot/dot#readme",
   "devDependencies": {
-    "typescript": "^4.1.2",
-    "lit-html": "^1.3.0",
-    "vuepress": "^1.7.1"
+    "typescript": "^4.1.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "lit-html": "^1.3.0"
+  }
 }
