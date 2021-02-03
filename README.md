@@ -5,7 +5,7 @@
 ---
 
 ## DOCS
-Full documentation is available here https://borradaniele.github.com/dot
+Full documentation is available here https://neondot.rndv.studio/
 
 ## Example of basic usage
 
