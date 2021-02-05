@@ -1,6 +1,6 @@
 {
   "name": "@neondot/dot",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A native first, front end library for creating awesome UI. Created to leverage the gap between native apis and reactive frameworks.",
   "main": "dist/index.js",
   "module": "dist/index.js",

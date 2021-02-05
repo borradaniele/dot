@@ -81,7 +81,7 @@ class DotRouter {
   }
 
   linkNavigate(event : CustomEvent) {
-    this.navigate(event.detail.$path);
+    this.navigate(event.detail.path);
   }
 
   public get location() : string {
