@@ -68,10 +68,10 @@ class DotRouter {
 
   matchRoute(path : string) {
     this.$route = this.$routes.find((route) => {
-      return route.path instanceof RegExp ? route.path.test(path) : route.path === path;
+      return route.$path instanceof RegExp ? route.$path.test(path) : route.$path === path;
     });
-    if (this.$route?.path instanceof RegExp) {
-      this.$route.$matches = path.match(this.$route.path);
+    if (this.$route?.$path instanceof RegExp) {
+      this.$route.$matches = path.match(this.$route.$path);
       this.$route.$params = this.$route.$matches?.groups;
     }
   }
@@ -81,7 +81,7 @@ class DotRouter {
   }
 
   linkNavigate(event : CustomEvent) {
-    this.navigate(event.detail.path);
+    this.navigate(event.detail.$path);
   }
 
   public get location() : string {
